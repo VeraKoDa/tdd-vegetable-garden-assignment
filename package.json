@@ -1,0 +1,15 @@
+{
+  "name": "tdd-vegetables",
+  "version": "1.0.0",
+  "main": "farm.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^28.1.3"
+  },
+  "description": ""
+}
