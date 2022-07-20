@@ -12,7 +12,7 @@ const corn = {
 };
  */
 
-const getYieldForPlant = (plant, environmentFactor) => plant.yield;
+const getYieldForPlant = (vegetable, environmentFactor) => vegetable.yield;
 
 const getYieldForCrop = (input) => input.crop.yield * input.numCrops;
 
@@ -26,8 +26,11 @@ const getTotalYield = (input) => {
   return result;
 };
 
+const getCostsForCrop = (input) => input.crop.costs * input.numCrops;
+
 module.exports = {
   getYieldForPlant,
   getYieldForCrop,
   getTotalYield,
+  getCostsForCrop,
 };
