@@ -12,7 +12,7 @@ const corn = {
 };
  */
 
-const getYieldForPlant = (vegetable, environmentFactor) => vegetable.yield;
+const getYieldForPlant = (vegetable) => vegetable.yield;
 
 const getYieldForCrop = (input) => input.crop.yield * input.numCrops;
 
@@ -35,6 +35,19 @@ const getRevenueForCrop = (sold) =>
 const getProfitForCrop = (sold) =>
   (sold.crop.salePrice * sold.crop.yield - sold.crop.costs) * sold.numCrops;
 
+const getTotalProfit = (cropsSold) => {
+  // console.log(`cropsSold = ${cropsSold.crops.crops[1]}`);
+  let result = 0;
+
+  cropsSold.crops.forEach((vegetable) => {
+    result +=
+      (vegetable.crop.yield * vegetable.crop.salePrice - vegetable.crop.costs) *
+      vegetable.numCrops;
+  });
+  console.log(result);
+  return result;
+};
+
 module.exports = {
   getYieldForPlant,
   getYieldForCrop,
@@ -42,4 +55,5 @@ module.exports = {
   getCostsForCrop,
   getRevenueForCrop,
   getProfitForCrop,
+  getTotalProfit,
 };

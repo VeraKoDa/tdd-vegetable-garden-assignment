@@ -5,6 +5,7 @@ const {
   getCostsForCrop,
   getRevenueForCrop,
   getProfitForCrop,
+  getTotalProfit,
 } = require("./farm_1");
 
 describe("getYieldForPlant", () => {
@@ -68,10 +69,9 @@ describe("getCostsForCrop", () => {
     };
     const input = {
       crop: corn,
-      numCrops: 10,
+      numCrops: 1,
     };
-    const crops = [{ crop: corn, numCrops: 10 }];
-    expect(getCostsForCrop(input)).toBe(20);
+    expect(getCostsForCrop(input)).toBe(2);
   });
 });
 
@@ -85,9 +85,9 @@ describe("getRevenueForCrop", () => {
     };
     const sold = {
       crop: corn,
-      numCrops: 5,
+      numCrops: 1,
     };
-    expect(getRevenueForCrop(sold)).toBe(30); // (salesPrice) 2 * (yield) 3 = € 6,- per crop. (crops) 5 * 6 = € 30
+    expect(getRevenueForCrop(sold)).toBe(6); // (salesPrice) 2 * (yield) 3 = € 6,- per crop. (crops) 5 * 6 = € 30
   });
 });
 
@@ -101,9 +101,31 @@ describe("getProfitForCrop", () => {
     };
     const sold = {
       crop: corn,
-      numCrops: 5,
+      numCrops: 1,
     };
 
-    expect(getProfitForCrop(sold)).toBe(20);
+    expect(getProfitForCrop(sold)).toBe(4);
+  });
+});
+
+describe("getTotalProfit", () => {
+  test("calculate the profit for multiple crops (without environmental factors", () => {
+    const corn = {
+      name: "corn",
+      yield: 3,
+      costs: 2,
+      salePrice: 2,
+    };
+    const pumpkin = {
+      name: "pumpkin",
+      yield: 4,
+      costs: 3,
+      salePrice: 5,
+    };
+    const crops = [
+      { crop: corn, numCrops: 5 },
+      { crop: pumpkin, numCrops: 2 },
+    ];
+    expect(getTotalProfit({ crops })).toBe(54);
   });
 });
