@@ -3,6 +3,7 @@ const {
   getYieldForCrop,
   getTotalYield,
   getCostsForCrop,
+  getRevenueForCrop,
 } = require("./farm_1");
 
 describe("getYieldForPlant", () => {
@@ -68,7 +69,23 @@ describe("getCostsForCrop", () => {
       crop: corn,
       numCrops: 10,
     };
-    // const crops = [{ crop: corn, numCrops: 10 }];
+    const crops = [{ crop: corn, numCrops: 10 }];
     expect(getCostsForCrop(input)).toBe(20);
+  });
+});
+
+describe("getRevenueForCrop", () => {
+  test("Calculate the revenue for a crop (without environmental factors)", () => {
+    const corn = {
+      name: "corn",
+      yield: 3,
+      costs: 2,
+      salePrice: 2,
+    };
+    const sold = {
+      crop: corn,
+      numCrops: 5,
+    };
+    expect(getRevenueForCrop(sold)).toBe(30); // (salesPrice) 2 * (yield) 3 = € 6,- per crop. (crops) 5 * 6 = € 30
   });
 });
