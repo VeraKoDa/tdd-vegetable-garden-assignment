@@ -1,18 +1,31 @@
-/* 
-const corn = {
-  name: "corn",
-  yield: 30,
-  factor: {
-    sun: {
-      low: -50,
-      medium: 0,
-      high: 50,
-    },
-  },
-};
- */
+const getYieldForPlant = (vegetable, environmentFactors) => {
+  if (environmentFactors === undefined) {
+    return vegetable.yield;
+  }
 
-const getYieldForPlant = (vegetable) => vegetable.yield;
+  valueArray = (element) => {
+    console.log(element);
+    if (element === undefined) {
+      return 1;
+    } else {
+      return (100 + element) / 100;
+    }
+  };
+
+  // sun factors
+  const sunFactor = environmentFactors.sun;
+  const sunValue = valueArray(vegetable.factor.sun[sunFactor]);
+
+  // rain factors
+  const rainFactor = environmentFactors.rain;
+  const rainValue = valueArray(vegetable.factor.rain[rainFactor]);
+
+  // wind factors
+  const windFactor = environmentFactors.wind;
+  const windValue = valueArray(vegetable.factor.wind[windFactor]);
+
+  return vegetable.yield * sunValue * rainValue * windValue;
+};
 
 const getYieldForCrop = (input) => input.crop.yield * input.numCrops;
 
@@ -44,7 +57,6 @@ const getTotalProfit = (cropsSold) => {
       (vegetable.crop.yield * vegetable.crop.salePrice - vegetable.crop.costs) *
       vegetable.numCrops;
   });
-  console.log(result);
   return result;
 };
 
