@@ -61,6 +61,41 @@ describe("getYieldForCrop", () => {
     };
     expect(getYieldForCrop(input)).toBe(30);
   });
+
+  test("Get yield for crop with environment factors", () => {
+    const corn = {
+      name: "corn",
+      yield: 3,
+      factor: {
+        sun: {
+          low: -50,
+          medium: 0,
+          high: 50,
+        },
+        rain: {
+          low: -30,
+          medium: 20,
+          high: -50,
+        },
+        wind: {
+          low: 0,
+          medium: -20,
+          high: -40,
+        },
+      },
+    };
+    const environmentFactors = {
+      sun: "low",
+      rain: "medium",
+      wind: "high",
+    };
+    const input = {
+      crop: corn,
+      environment: environmentFactors,
+      numCrops: 10,
+    };
+    expect(getYieldForCrop(input)).toBe(10.8);
+  });
 });
 
 describe("getTotalYield", () => {
@@ -87,6 +122,62 @@ describe("getTotalYield", () => {
     };
     const crops = [{ crop: corn, numCrops: 0 }];
     expect(getTotalYield({ crops })).toBe(0);
+  });
+
+  test("Calculate total yield with environment factors", () => {
+    const corn = {
+      name: "corn",
+      yield: 3,
+      factor: {
+        sun: {
+          low: -50,
+          medium: 0,
+          high: 50,
+        },
+        rain: {
+          low: -30,
+          medium: 0,
+          high: 30,
+        },
+        wind: {
+          low: 0,
+          medium: -20,
+          high: -40,
+        },
+      },
+    };
+    const pumpkin = {
+      name: "pumpkin",
+      yield: 4,
+      factor: {
+        sun: {
+          low: -50,
+          medium: 0,
+          high: 50,
+        },
+        rain: {
+          low: -30,
+          medium: 0,
+          high: -30,
+        },
+        wind: {
+          low: 0,
+          medium: 20,
+          high: -40,
+        },
+      },
+    };
+    const environmentFactors = {
+      sun: "low",
+      rain: "medium",
+      wind: "high",
+    };
+
+    const crops = [
+      { crop: corn, environment: environmentFactors, numCrops: 5 },
+      { crop: pumpkin, environment: environmentFactors, numCrops: 5 },
+    ];
+    expect(getTotalYield({ crops })).toBe(10.5);
   });
 });
 
