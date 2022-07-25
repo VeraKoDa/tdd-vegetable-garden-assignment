@@ -56,7 +56,6 @@ const getTotalYield = (input) => {
 
   input.crops.forEach((vegetable) => {
     if (vegetable.environment === undefined) {
-      console.log(`in undefined `);
       return (result += vegetable.crop.yield * vegetable.numCrops);
     }
 
@@ -76,9 +75,8 @@ const getTotalYield = (input) => {
     const windValue = valueCalculation(vegetable.crop.factor.wind[windFactor]);
 
     const totalYield = vegetable.crop.yield * sunValue * rainValue * windValue;
-    result += Math.round(totalYield * vegetable.numCrops * 10) / 10;
 
-    // result += vegetable.crop.yield * vegetable.numCrops
+    result += Math.round(totalYield * vegetable.numCrops * 10) / 10;
   });
 
   return result;
@@ -87,8 +85,14 @@ const getTotalYield = (input) => {
 const getCostsForCrop = (vegetable) =>
   vegetable.crop.costs * vegetable.numCrops;
 
-const getRevenueForCrop = (sold) =>
-  sold.crop.salePrice * sold.crop.yield * sold.numCrops;
+const getRevenueForCrop = (sold) => {
+  if (sold.environment === undefined) {
+    return sold.crop.salePrice * sold.crop.yield * sold.numCrops;
+  }
+
+  const totalYield = getYieldForCrop(sold);
+  return sold.crop.salePrice * totalYield;
+};
 
 const getProfitForCrop = (sold) =>
   (sold.crop.salePrice * sold.crop.yield - sold.crop.costs) * sold.numCrops;

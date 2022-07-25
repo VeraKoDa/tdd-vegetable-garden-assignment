@@ -210,6 +210,46 @@ describe("getRevenueForCrop", () => {
     };
     expect(getRevenueForCrop(sold)).toBe(6); // (salesPrice) 2 * (yield) 3 = € 6,- per crop. (crops) 5 * 6 = € 30
   });
+
+  test("Calculate the revenue for a crop (with environmental factors", () => {
+    const corn = {
+      name: "corn",
+      yield: 3,
+      costs: 2,
+      salePrice: 2,
+      factor: {
+        sun: {
+          low: -50,
+          medium: 0,
+          high: 50,
+        },
+        rain: {
+          low: -30,
+          medium: 0,
+          high: -30,
+        },
+        wind: {
+          low: 0,
+          medium: 20,
+          high: -40,
+        },
+      },
+    };
+
+    const environmentFactors = {
+      sun: "low",
+      rain: "medium",
+      wind: "high",
+    };
+
+    const sold = {
+      crop: corn,
+      environment: environmentFactors,
+      numCrops: 5,
+    };
+
+    expect(getRevenueForCrop(sold)).toBe(9);
+  });
 });
 
 describe("getProfitForCrop", () => {
