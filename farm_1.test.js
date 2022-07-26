@@ -208,7 +208,7 @@ describe("getRevenueForCrop", () => {
       crop: corn,
       numCrops: 1,
     };
-    expect(getRevenueForCrop(sold)).toBe(6); // (salesPrice) 2 * (yield) 3 = € 6,- per crop. (crops) 5 * 6 = € 30
+    expect(getRevenueForCrop(sold)).toBe(6); // (salesPrice) 2 * (yield) 3 = € 6,- per crop. (crops) 1 * 6 = € 30
   });
 
   test("Calculate the revenue for a crop (with environmental factors", () => {
@@ -237,18 +237,18 @@ describe("getRevenueForCrop", () => {
     };
 
     const environmentFactors = {
-      sun: "low",
-      rain: "medium",
-      wind: "high",
+      sun: "high",
+      rain: "low",
+      wind: "medium",
     };
 
     const sold = {
       crop: corn,
       environment: environmentFactors,
-      numCrops: 5,
+      numCrops: 1,
     };
 
-    expect(getRevenueForCrop(sold)).toBe(9);
+    expect(getRevenueForCrop(sold)).toBe(7.6);
   });
 });
 
@@ -266,6 +266,45 @@ describe("getProfitForCrop", () => {
     };
 
     expect(getProfitForCrop(sold)).toBe(4);
+  });
+  test("calculate the profit for a crop (with environmental factors)", () => {
+    const avocado = {
+      name: "avocado",
+      yield: 5,
+      costs: 2,
+      salePrice: 2,
+      factor: {
+        sun: {
+          low: -50,
+          medium: 0,
+          high: 50,
+        },
+        rain: {
+          low: -30,
+          medium: 0,
+          high: -30,
+        },
+        wind: {
+          low: 0,
+          medium: 20,
+          high: -40,
+        },
+      },
+    };
+
+    const environmentFactors = {
+      sun: "high",
+      rain: "low",
+      wind: "medium",
+    };
+
+    const sold = {
+      crop: avocado,
+      environment: environmentFactors,
+      numCrops: 1,
+    };
+
+    expect(getProfitForCrop(sold)).toBe(10.6);
   });
 });
 

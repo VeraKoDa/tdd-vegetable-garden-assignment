@@ -90,12 +90,18 @@ const getRevenueForCrop = (sold) => {
     return sold.crop.salePrice * sold.crop.yield * sold.numCrops;
   }
 
-  const totalYield = getYieldForCrop(sold);
-  return sold.crop.salePrice * totalYield;
+  const yieldForCrop = getYieldForCrop(sold);
+  return sold.crop.salePrice * yieldForCrop;
 };
 
-const getProfitForCrop = (sold) =>
-  (sold.crop.salePrice * sold.crop.yield - sold.crop.costs) * sold.numCrops;
+const getProfitForCrop = (sold) => {
+  if (sold.environment === undefined) {
+    (sold.crop.salePrice * sold.crop.yield - sold.crop.costs) * sold.numCrops;
+  }
+
+  const totalYieldRevenue = getRevenueForCrop(sold);
+  return totalYieldRevenue - sold.crop.costs;
+};
 
 const getTotalProfit = (cropsSold) => {
   // console.log(`cropsSold = ${cropsSold.crops.crops[1]}`);
