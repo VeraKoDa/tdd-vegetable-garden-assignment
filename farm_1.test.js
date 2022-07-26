@@ -89,12 +89,12 @@ describe("getYieldForCrop", () => {
       rain: "medium",
       wind: "high",
     };
-    const input = {
+    const vegetable = {
       crop: corn,
       environment: environmentFactors,
       numCrops: 10,
     };
-    expect(getYieldForCrop(input)).toBe(10.8);
+    expect(getYieldForCrop(vegetable)).toBe(10.8);
   });
 });
 
@@ -386,6 +386,6 @@ describe("getTotalProfit", () => {
       { crop: avocado, environment: environmentFactors, numCrops: 1 },
       { crop: pumpkin, environment: environmentFactors, numCrops: 1 },
     ];
-    expect(getTotalProfit({ crops })).toBe();
+    expect(getTotalProfit({ crops })).toBe(17.4);
   });
 });
