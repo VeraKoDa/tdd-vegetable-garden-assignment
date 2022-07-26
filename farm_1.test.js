@@ -328,4 +328,64 @@ describe("getTotalProfit", () => {
     ];
     expect(getTotalProfit({ crops })).toBe(54);
   });
+
+  test("Calculate the profit for muliple crops (with environmental factors", () => {
+    const avocado = {
+      name: "avocado",
+      yield: 6,
+      costs: 2,
+      salePrice: 2,
+      factor: {
+        sun: {
+          low: -50,
+          medium: 0,
+          high: 50,
+        },
+        rain: {
+          low: -30,
+          medium: 0,
+          high: -30,
+        },
+        wind: {
+          low: 0,
+          medium: 20,
+          high: -40,
+        },
+      },
+    };
+    const pumpkin = {
+      name: "pumpkin",
+      yield: 4,
+      costs: 3,
+      salePrice: 5,
+      factor: {
+        sun: {
+          low: -50,
+          medium: 0,
+          high: 50,
+        },
+        rain: {
+          low: -30,
+          medium: 0,
+          high: -30,
+        },
+        wind: {
+          low: 0,
+          medium: 20,
+          high: -40,
+        },
+      },
+    };
+    const environmentFactors = {
+      sun: "medium",
+      rain: "high",
+      wind: "low",
+    };
+
+    const crops = [
+      { crop: avocado, environment: environmentFactors, numCrops: 1 },
+      { crop: pumpkin, environment: environmentFactors, numCrops: 1 },
+    ];
+    expect(getTotalProfit({ crops })).toBe();
+  });
 });

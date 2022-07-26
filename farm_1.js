@@ -104,14 +104,25 @@ const getProfitForCrop = (sold) => {
 };
 
 const getTotalProfit = (cropsSold) => {
-  // console.log(`cropsSold = ${cropsSold.crops.crops[1]}`);
   let result = 0;
+  let array = cropsSold.crops;
 
-  cropsSold.crops.forEach((vegetable) => {
-    result +=
-      (vegetable.crop.yield * vegetable.crop.salePrice - vegetable.crop.costs) *
-      vegetable.numCrops;
+  array.forEach((vegetable) => {
+    console.log("vegetable.environment: ", vegetable.environment);
+    if (vegetable.environment === undefined) {
+      result +=
+        (vegetable.crop.yield * vegetable.crop.salePrice -
+          vegetable.crop.costs) *
+        vegetable.numCrops;
+      return;
+    }
+
+    console.log("vegetable: ", vegetable);
+    const totalYieldRevenue = getRevenueForCrop(vegetable);
+    console.log("Total Yield Revenue", totalYieldRevenue);
+    result += totalYieldRevenue - vegetable.crop.costs * vegetable.numCrops;
   });
+
   return result;
 };
 
