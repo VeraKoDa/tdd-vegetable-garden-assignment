@@ -78,7 +78,7 @@ const getProfitForCrop = (soldVegetables) => {
   }
 
   const totalYieldRevenue = getRevenueForCrop(soldVegetables);
-  return totalYieldRevenue - vegetable.costs;
+  return totalYieldRevenue - vegetable.costs * soldVegetables.numCrops;
 };
 
 // ** Get total profit ** \\

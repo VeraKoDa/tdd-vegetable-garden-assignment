@@ -383,9 +383,9 @@ describe("getTotalProfit", () => {
     };
 
     const crops = [
-      { crop: avocado, environment: environmentFactors, numCrops: 1 },
-      { crop: pumpkin, environment: environmentFactors, numCrops: 1 },
+      { crop: avocado, environment: environmentFactors, numCrops: 2 },
+      { crop: pumpkin, environment: environmentFactors, numCrops: 4 },
     ];
-    expect(getTotalProfit({ crops })).toBe(17.4);
+    expect(getTotalProfit({ crops })).toBe(56.8);
   });
 });
